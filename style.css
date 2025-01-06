@@ -1,3 +1,7 @@
+:root {
+    --grid-border-color: #9e6c00;
+}
+
 /* General styling */
 
 *, *::after, *::before {
@@ -8,4 +12,51 @@
     margin: 0;
     padding: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+/* ------------------------------- */
+
+body {
+    background-color: #101018;
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    color: #cccccc;
+}
+
+header, footer {
+    text-align: center;
+    margin: 2rem;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+
+    table {
+        border-collapse: collapse;
+        font: inherit;
+    }
+    
+    tr:nth-of-type(1) td,
+    tr:nth-of-type(2) td {
+        border-bottom: 8px solid var(--grid-border-color);
+
+        &:nth-child(2) {
+            border-left: 8px solid var(--grid-border-color);
+            border-right: 8px solid var(--grid-border-color);
+        }
+    }
+    
+    tr:nth-of-type(3) td:nth-of-type(2) {        
+        border-left: 8px solid var(--grid-border-color);
+        border-right: 8px solid var(--grid-border-color);
+    }
+
+    td {
+        text-align: center;
+        height: 8rem;
+        width: 6rem;
+    }
 }

@@ -7,6 +7,11 @@ const game = (function () {
         ];
         
         function placeSymbol(gridRow, gridIndex, symbol) {
+            if (gridRow < 0 || gridRow > 2 || gridIndex < 0 || gridIndex > 2) {
+                console.log('Invalid grid cords entered')
+                return false;
+            }
+
             if (gameBoard[gridRow][gridIndex] !== null) return false;
             gameBoard[gridRow][gridIndex] = symbol;
             return true;
@@ -30,12 +35,19 @@ const game = (function () {
     const Player2 = createPlayer('Test2', 'O');
     let turn = Player1;
     let turnCount = 0;
+    let winner = null;
 
     function takeTurn(gridRow, gridIndex) {
-        if (gameBoard.placeSymbol(gridRow, gridIndex, turn.getSymbol())) {
+        if (!winner && gameBoard.placeSymbol(gridRow, gridIndex, turn.getSymbol())) {
             turnCount++;
-            checkEndConditions() ? console.log(`${turn.getName()} has won!`) : swapTurn();
+            checkEndConditions() ? gameOverHandler() : swapTurn();
             console.log(gameBoard.retrieveBoard());
+        }
+        else if (winner) {
+            console.log('The game has ended already');
+        }
+        else {
+            console.log('Grid cords unavailable');
         }
     }
 
@@ -44,8 +56,14 @@ const game = (function () {
     }
 
     function checkEndConditions() {
-        if (turnCount <= 9 && checkWinCondition()) return true;
-        // else if (turnCount === 9) return 'tie';
+        if (turnCount <= 9 && checkWinCondition()) {
+            winner = turn;
+            return true;
+        }
+        else if (turnCount === 9) {
+            winner = 'tie';
+            return true;
+        }
         else return false;
 
         function checkWinCondition() {
@@ -79,6 +97,16 @@ const game = (function () {
                 return false;
             }
         }
+    }
+
+    function gameOverHandler() {
+        if (winner === 'tie') {
+            console.log("It's a tie!");
+        }
+        else if (typeof winner === 'object') {
+            console.log(`${winner.getName()} has won!`);
+        }
+        else return false;
     }
 
     return { takeTurn }

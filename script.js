@@ -37,6 +37,8 @@ const game = (function () {
     let turnCount = 0;
     let winner = null;
 
+    const getPlayerTurn = () => turn;
+
     function takeTurn(gridRow, gridIndex) {
         if (!winner && gameBoard.placeSymbol(gridRow, gridIndex, turn.getSymbol())) {
             turnCount++;
@@ -111,7 +113,8 @@ const game = (function () {
 
     return { 
         takeTurn,
-        retrieveBoard: gameBoard.retrieveBoard 
+        retrieveBoard: gameBoard.retrieveBoard,
+        getPlayerTurn 
     }
 })();
 
@@ -120,7 +123,10 @@ const displayController = (function () {
     
     function drawBoard() {
         const board = game.retrieveBoard();
+        const $turn = document.querySelector('.turn');
         $board.innerHTML = '';
+
+        $turn.innerText = `It is ${game.getPlayerTurn().getName()}'s turn!`
 
         board.forEach((row, rowNum) => {
             const $row = document.createElement('tr');

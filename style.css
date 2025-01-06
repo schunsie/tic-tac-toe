@@ -65,11 +65,11 @@ main {
             cursor: pointer;
         }
 
-        &.x {
+        &.X {
             color: #8f2323;
         }
 
-        &.o {
+        &.O {
             color: #1e27a0;
         }
     }

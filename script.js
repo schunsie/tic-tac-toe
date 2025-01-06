@@ -109,5 +109,45 @@ const game = (function () {
         else return false;
     }
 
-    return { takeTurn }
+    return { 
+        takeTurn,
+        retrieveBoard: gameBoard.retrieveBoard 
+    }
+})();
+
+const displayController = (function () {
+    const $board = document.querySelector('table');
+    
+    function drawBoard() {
+        const board = game.retrieveBoard();
+        $board.innerHTML = '';
+
+        board.forEach((row, rowNum) => {
+            const $row = document.createElement('tr');
+            row.forEach((cell, columnNum) => {
+                const $cell = document.createElement('td');
+                $cell.innerText = cell;
+                $cell.classList.add(cell ? cell : 'empty');
+                $cell.dataset.row = rowNum;
+                $cell.dataset.column = columnNum;
+                $row.appendChild($cell);
+            })
+            $board.appendChild($row);
+        });
+    }
+
+    $board.addEventListener('click', clickHandler);
+
+    function clickHandler(e) {
+        const row = e.target.dataset.row;
+        const column = e.target.dataset.column;
+
+        if (!row || !column || !e.target.classList.contains('empty')) return;
+
+        game.takeTurn(row, column);
+        drawBoard();
+    }
+
+    // Initial draw
+    drawBoard();
 })();

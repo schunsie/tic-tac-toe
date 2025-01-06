@@ -90,8 +90,8 @@ const game = (function () {
 
             function checkDiagonalWin() {
                 const symbol = turn.getSymbol();
-                if (!board[1][1] === symbol) return false;
-
+                if (!(board[1][1] === symbol)) return false;
+                
                 if (board[0][0] === symbol && board[2][2] === symbol) return true;
                 else if (board[0][2] === symbol && board[2][0] === symbol) return true;
                 return false;

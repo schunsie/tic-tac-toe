@@ -52,7 +52,7 @@ const game = (function () {
             const board = gameBoard.retrieveBoard();
             
             // TODO: check win conditions
-            if (checkRowWin() || checkColumnWin()) return true;
+            if (checkRowWin() || checkColumnWin() || checkDiagonalWin()) return true;
             else return false;
 
             function checkRowWin() {
@@ -66,7 +66,16 @@ const game = (function () {
                 for (let column = 0; column < 3; column++) {
                     if (board.every(row => row[column] === turn.getSymbol())) return true;
                 }
-                
+
+                return false;
+            }
+
+            function checkDiagonalWin() {
+                const symbol = turn.getSymbol();
+                if (!board[1][1] === symbol) return false;
+
+                if (board[0][0] === symbol && board[2][2] === symbol) return true;
+                else if (board[0][2] === symbol && board[2][0] === symbol) return true;
                 return false;
             }
         }

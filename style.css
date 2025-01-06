@@ -58,5 +58,19 @@ main {
         text-align: center;
         height: 8rem;
         width: 6rem;
+        cursor: default;
+        text-shadow: #1e27a0;
+        
+        &.empty {
+            cursor: pointer;
+        }
+
+        &.x {
+            color: #8f2323;
+        }
+
+        &.o {
+            color: #1e27a0;
+        }
     }
 }

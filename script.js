@@ -52,17 +52,23 @@ const game = (function () {
             const board = gameBoard.retrieveBoard();
             
             // TODO: check win conditions
-            if (checkRowWin()) return true;
+            if (checkRowWin() || checkColumnWin()) return true;
             else return false;
 
             function checkRowWin() {
                 for (const row of board) {
                     if (row.every(item => item === turn.getSymbol())) return true;
-                    console.log(`No win found in ${row}`);
                 }
                 return false;
             }
 
+            function checkColumnWin() {
+                for (let column = 0; column < 3; column++) {
+                    if (board.every(row => row[column] === turn.getSymbol())) return true;
+                }
+                
+                return false;
+            }
         }
     }
 

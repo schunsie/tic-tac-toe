@@ -179,7 +179,10 @@ const displayController = (function () {
         
         if (event.target.id === 'p1') {
             $p2Form.parentElement.classList.add('active');
+            game.createPlayer(name, symbol);
             $p2Form.querySelector(`.${game.getPlayerTurn().getSymbol()}`).disabled = true;
+            $p2Form.querySelector(`input[type="radio"]`).checked = false;
+
             event.target.parentElement.remove();
         }
         if (event.target.id === 'p2') {
@@ -187,11 +190,11 @@ const displayController = (function () {
             if (!game.getPlayerTurn()) return;
             
             // Prevents player 2 from picking same symbol
-            if (symbol === game.getPlayerTurn().getSymbol())
+            if (symbol === game.getPlayerTurn().getSymbol()) return;
 
             document.querySelector('.players-container').remove();
+            game.createPlayer(name, symbol);
             drawBoard();
         }
-        game.createPlayer(name, symbol);
     }
 })();

@@ -1,5 +1,6 @@
 const game = (function () {
     const gameBoard = (function () {
+        // Tic-Tac-Toe board displayed as array of rows (2D array)
         const gameBoard = [
             [null, null, null],
             [null, null, null],
@@ -8,11 +9,14 @@ const game = (function () {
         
         function placeSymbol(gridRow, gridIndex, symbol) {
             if (gridRow < 0 || gridRow > 2 || gridIndex < 0 || gridIndex > 2) {
-                console.log('Invalid grid cords entered')
+                console.log('Invalid grid cords entered: outside of range')
+                return false;
+            }
+            if (gameBoard[gridRow][gridIndex] !== null) {
+                console.log('Invalid grid cords entered: grid already occupied')
                 return false;
             }
 
-            if (gameBoard[gridRow][gridIndex] !== null) return false;
             gameBoard[gridRow][gridIndex] = symbol;
             return true;
         }
@@ -31,6 +35,7 @@ const game = (function () {
         return { getName, getSymbol };
     } 
 
+    // Initialize starting variables
     const Player1 = createPlayer('Test1', 'X');
     const Player2 = createPlayer('Test2', 'O');
     let turn = Player1;
@@ -49,7 +54,7 @@ const game = (function () {
             console.log('The game has ended already');
         }
         else {
-            console.log('Grid cords unavailable');
+            console.log('Error placing symbol');
         }
     }
 
@@ -71,7 +76,6 @@ const game = (function () {
         function checkWinCondition() {
             const board = gameBoard.retrieveBoard();
             
-            // TODO: check win conditions
             if (checkRowWin() || checkColumnWin() || checkDiagonalWin()) return true;
             else return false;
 
@@ -118,6 +122,7 @@ const game = (function () {
     }
 })();
 
+
 const displayController = (function () {
     const $board = document.querySelector('table');
     
@@ -126,7 +131,7 @@ const displayController = (function () {
         const $turn = document.querySelector('.turn');
         $board.innerHTML = '';
 
-        $turn.innerText = `It is ${game.getPlayerTurn().getName()}'s turn!`
+        $turn.innerText = `It's ${game.getPlayerTurn().getName()}'s turn!`
 
         board.forEach((row, rowNum) => {
             const $row = document.createElement('tr');

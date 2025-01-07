@@ -13,6 +13,34 @@
         <h1>Tic-Tac-Toe</h1>
     </header>
     <main>
+        <div class="players-container">
+            <div class="player-one">
+                <form action="">
+                    <h2>Player one</h2>
+                    <label for="name1">Name</label>
+                    <input id='name1' type="text">
+
+                    <legend>Symbol</legend>
+                    <ul>
+                        <li>
+                            <label for="X">
+                                X
+                                <input type="radio" name="XO" id="X" required>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                O
+                                <input type="radio" name="XO" id="O">
+                            </label>
+                        </li>
+                    </ul>
+
+                    <button type="submit">Next</button>
+                </form>
+            </div>
+        </div>
+
         <p class="turn"></p>
         <table>
             <tbody></tbody>

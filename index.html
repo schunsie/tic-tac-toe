@@ -23,20 +23,45 @@
                     <legend>Symbol</legend>
                     <ul>
                         <li>
-                            <label for="X">
+                            <label>
                                 X
-                                <input type="radio" name="XO" id="X" value='X' required>
+                                <input type="radio" name="XO" class="X" value='X' required>
                             </label>
                         </li>
                         <li>
                             <label>
                                 O
-                                <input type="radio" name="XO" value="O" id="O">
+                                <input type="radio" name="XO" value="O" class="O">
                             </label>
                         </li>
                     </ul>
 
                     <button type="submit">Next</button>
+                </form>
+            </div>
+            <div class="player-two">
+                <form id="p2">
+                    <h2>Player two</h2>
+                    <label for="name2">Name</label>
+                    <input id='name2' type="text" required>
+
+                    <legend>Symbol</legend>
+                    <ul>
+                        <li>
+                            <label>
+                                X
+                                <input type="radio" name="XO2" class="X" value='X' required>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                O
+                                <input type="radio" name="XO2" value="O" class="O">
+                            </label>
+                        </li>
+                    </ul>
+
+                    <button type="submit">Begin</button>
                 </form>
             </div>
         </div>

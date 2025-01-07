@@ -86,11 +86,12 @@ main {
     height: 100vh;
     width: 100vw;
 
-    .player-one {
-        position: relative;
-        margin: 0 auto;
+    .player-one,
+    .player-two {
+        position: absolute;
         top: 50%;
-        transform: translateY(-50%);
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
         
         background-color: #dadada;
         color: black;
@@ -99,6 +100,14 @@ main {
         box-shadow: 8px 8px 8px 1px rgba(0, 0, 0, 0.65);
         width: 20%;
         min-width: 15rem;
+    }
+
+    .player-two {
+        display: none;
+
+        &.active {
+            display: block;
+        }
     }
 
     form {
@@ -135,11 +144,16 @@ main {
             background-color: aliceblue;
             user-select: none;
 
-            &:has(input#O:checked) {
+            &:has(input.O:checked) {
                 background-color: #8f2323d3;
             }
-            &:has(input#X:checked) {
+            &:has(input.X:checked) {
                 background-color: #1e27a0d3;
+            }
+
+            &:has(input:disabled) {
+                cursor: default;
+                opacity: 0.3;
             }
         }
 

@@ -31,14 +31,19 @@ const game = (function () {
     function createPlayer(name, symbol) {
         const getName = () => name;
         const getSymbol = () => symbol;
-    
-        return { getName, getSymbol };
+        const result = {getName, getSymbol};
+
+        if (Player1) Player2 = result;  
+        else {
+            Player1 = result;
+            turn = Player1;
+        }
     } 
 
     // Initialize starting variables
-    const Player1 = createPlayer('Test1', 'X');
-    const Player2 = createPlayer('Test2', 'O');
-    let turn = Player1;
+    let Player1;
+    let Player2;
+    let turn;
     let turnCount = 0;
     let winner = null;
 
@@ -118,7 +123,8 @@ const game = (function () {
     return { 
         takeTurn,
         retrieveBoard: gameBoard.retrieveBoard,
-        getPlayerTurn 
+        getPlayerTurn,
+        createPlayer 
     }
 })();
 
@@ -159,6 +165,31 @@ const displayController = (function () {
         drawBoard();
     }
 
+    const $p1Form = document.querySelector('#p1');
+    const $p2Form = document.querySelector('#p2');
+
+    $p1Form.addEventListener("submit", submitHandler);
+    $p2Form.addEventListener("submit", submitHandler);
+    
+    function submitHandler(event) {
+        event.preventDefault();
+
+        const name = event.target.querySelector('input[type="text"]').value;
+        const symbol = event.target.querySelector('input[type="radio"]:checked').value;
+        console.log(name);
+        
+        if (event.target.id === 'p1') {
+            $p2Form.parentElement.classList.add('active');
+            $p2Form.querySelector(`.${game.getPlayerTurn().getSymbol()}`).disabled = true;
+            event.target.parentElement.remove();
+        }
+        if (event.target.id === 'p2') {
+            document.querySelector('.players-container').remove();
+            drawBoard();
+        }
+        game.createPlayer(name, symbol);
+    }
+
     // Initial draw
-    drawBoard();
+    // drawBoard();
 })();

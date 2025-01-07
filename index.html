@@ -15,23 +15,23 @@
     <main>
         <div class="players-container">
             <div class="player-one">
-                <form action="">
+                <form id="p1">
                     <h2>Player one</h2>
                     <label for="name1">Name</label>
-                    <input id='name1' type="text">
+                    <input id='name1' type="text" required>
 
                     <legend>Symbol</legend>
                     <ul>
                         <li>
                             <label for="X">
                                 X
-                                <input type="radio" name="XO" id="X" required>
+                                <input type="radio" name="XO" id="X" value='X' required>
                             </label>
                         </li>
                         <li>
                             <label>
                                 O
-                                <input type="radio" name="XO" id="O">
+                                <input type="radio" name="XO" value="O" id="O">
                             </label>
                         </li>
                     </ul>

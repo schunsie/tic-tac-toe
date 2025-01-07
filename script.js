@@ -176,7 +176,6 @@ const displayController = (function () {
 
         const name = event.target.querySelector('input[type="text"]').value;
         const symbol = event.target.querySelector('input[type="radio"]:checked').value;
-        console.log(name);
         
         if (event.target.id === 'p1') {
             $p2Form.parentElement.classList.add('active');
@@ -184,12 +183,15 @@ const displayController = (function () {
             event.target.parentElement.remove();
         }
         if (event.target.id === 'p2') {
+            // Prevents user from submitting a p2 without a p2 present
+            if (!game.getPlayerTurn()) return;
+            
+            // Prevents player 2 from picking same symbol
+            if (symbol === game.getPlayerTurn().getSymbol())
+
             document.querySelector('.players-container').remove();
             drawBoard();
         }
         game.createPlayer(name, symbol);
     }
-
-    // Initial draw
-    // drawBoard();
 })();

@@ -179,3 +179,20 @@ main {
         }
     }
 }
+
+#newG {
+    background: none;
+    color: #9e6c00;
+    border: none;
+    cursor: pointer;
+    transition: color 0.4s;
+    visibility: hidden;
+
+    &:hover {
+        color: #dadada;
+    }
+
+    &.visible {
+        visibility: visible;
+    }
+}

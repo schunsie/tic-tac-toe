@@ -54,12 +54,15 @@ const game = (function () {
             turnCount++;
             checkEndConditions() ? gameOverHandler() : swapTurn();
             console.log(gameBoard.retrieveBoard());
+            return true;
         }
         else if (winner) {
             console.log('The game has ended already');
+            return false;
         }
         else {
             console.log('Error placing symbol');
+            return false;
         }
     }
 
@@ -120,21 +123,24 @@ const game = (function () {
         else return false;
     }
 
+    const getWinner = () => winner;
+
     return { 
         takeTurn,
         retrieveBoard: gameBoard.retrieveBoard,
         getPlayerTurn,
-        createPlayer 
+        createPlayer,
+        getWinner
     }
 })();
 
 
 const displayController = (function () {
     const $board = document.querySelector('table');
+    const $turn = document.querySelector('.turn');
     
     function drawBoard() {
         const board = game.retrieveBoard();
-        const $turn = document.querySelector('.turn');
         $board.innerHTML = '';
 
         $turn.innerText = `It's ${game.getPlayerTurn().getName()}'s turn!`
@@ -161,8 +167,24 @@ const displayController = (function () {
 
         if (!row || !column || !e.target.classList.contains('empty')) return;
 
-        game.takeTurn(row, column);
-        drawBoard();
+        if (game.takeTurn(row, column)) drawBoard();
+        if (game.getWinner()) gameEnding(game.getWinner());
+
+        function gameEnding(winner) {
+            if (winner === 'tie') {
+                $turn.innerText = 'It\'s a tie!';
+            }
+            else if (typeof winner === 'object') {
+                $turn.innerText = `${winner.getName()} (${winner.getSymbol()}) has won!`;
+            }
+            else return;
+
+            const newGBtn = document.querySelector('#newG');
+            newGBtn.classList.add('visible');
+
+            // As of now, game reset is done using window refresh
+            newGBtn.addEventListener('click', () => window.location.reload());
+        }
     }
 
     const $p1Form = document.querySelector('#p1');

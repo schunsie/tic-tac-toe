@@ -146,10 +146,10 @@ main {
             user-select: none;
 
             &:has(input.O:checked) {
-                background-color: #8f2323d3;
+                background-color: #1e27a0d3;
             }
             &:has(input.X:checked) {
-                background-color: #1e27a0d3;
+                background-color: #8f2323d3;
             }
 
             &:has(input:disabled) {
